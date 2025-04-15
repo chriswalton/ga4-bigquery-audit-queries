@@ -16,7 +16,6 @@ Each query is built for **dynamic use** and focuses on **data quality, performan
 | [`campaign-attribution`](./queries/campaign-attribution) | Flag broken/missing UTM and GCLID parameters |
 | [`custom-event-hygiene`](./queries/custom-event-hygiene) | Detect misuse of parameters and high-cost events |
 | [`bot-detection`](./queries/bot-detection) | Identify sessions with bot-like behaviour |
-| [`timezone-timestamp`](./queries/timezone-timestamp) | Debug clock drift, timestamp spikes |
 | [`consent-gdpr`](./queries/consent-gdpr) | See conversion breakdown by consent status |
 | [`device-platform`](./queries/device-platform) | Test conversion by browser/OS/device/screen |
 | [`broken-pathways`](./queries/broken-pathways) | Analyse traffic to 404s and broken flows |
