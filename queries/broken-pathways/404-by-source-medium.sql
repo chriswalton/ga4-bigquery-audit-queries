@@ -1,12 +1,13 @@
-SSELECT DISTINCT
+SELECT
   traffic_source.source,
   traffic_source.medium,
-  traffic_source.name AS campaign
-FROM `{{PROJECT_ID}}.{{DATASET}}.events_*`
+  event_params.value.string_value AS broken_page,
+  COUNT(*) AS hits
+FROM `{{PROJECT_ID}}.{{DATASET}}.events_*`,
+     UNNEST(event_params) AS event_params
 WHERE _TABLE_SUFFIX BETWEEN '{{START_DATE}}' AND '{{END_DATE}}'
-  AND (
-    traffic_source.medium IS NULL
-    OR traffic_source.medium = '(not set)'
-    OR traffic_source.source IS NULL
-    OR traffic_source.source = '(not set)'
-  )
+  AND event_name = 'page_view'
+  AND event_params.key = 'page_location'
+  AND event_params.value.string_value LIKE '%/404%'
+GROUP BY traffic_source.source, traffic_source.medium, broken_page
+ORDER BY hits DESC
