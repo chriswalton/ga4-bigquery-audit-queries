@@ -1,0 +1,22 @@
+
+SELECT
+  event_timestamp,
+  user_pseudo_id,
+  (SELECT value.string_value
+   FROM UNNEST(event_params)
+   WHERE key = 'page_location'
+  ) AS page_location,
+  ep.key               AS param_key,
+  ep.value.string_value AS param_value
+FROM
+  `..events_*`,
+  UNNEST(event_params) AS ep
+WHERE
+  event_name = 'page_view'
+  AND (
+    LOWER(ep.key) IN ('email', 'phone', 'name', 'address')
+    OR
+    REGEXP_CONTAINS(ep.value.string_value,
+      r'[\w\.-]+@[\w\.-]+\.\w+')
+  )
+LIMIT 1000;

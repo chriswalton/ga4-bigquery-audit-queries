@@ -12,3 +12,6 @@ This section includes queries to validate campaign tracking integrity and detect
 
 - **Sessions with gclid but Not Google as Source**  
   Identifies sessions where a `gclid` is present but the source is not Google, which may point to tracking mismatches or spoofed parameters.
+
+- **ChatGPT Sessions by Day**  
+Counts daily sessions where traffic_source.source contains “chatgpt”, highlighting AI‑driven traffic trends over time.

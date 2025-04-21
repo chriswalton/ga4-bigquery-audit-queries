@@ -15,3 +15,6 @@ Ensure your custom events and parameters are well-structured, complete, and not 
 
 - **Suspicious or Default Parameter Values**  
   Detects events where parameter values are suspicious (e.g., "null", "undefined", "NaN", or empty strings).
+
+- **Page Views with Suspected PII** 
+  Extracts all page_view events where parameter keys match common PII names (email, phone, name, address) or parameter values match an email pattern.

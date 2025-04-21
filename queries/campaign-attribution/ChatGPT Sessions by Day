@@ -1,0 +1,27 @@
+
+WITH sessions AS (
+  SELECT
+    CAST(
+      (SELECT value.int_value
+       FROM UNNEST(event_params)
+       WHERE key = 'ga_session_id'
+       LIMIT 1
+      ) AS INT64
+    ) AS ga_session_id,
+    DATE(TIMESTAMP_MICROS(MIN(event_timestamp))) AS session_date
+  FROM `..events_*`
+  WHERE
+    LOWER(traffic_source.source) LIKE '%chatgpt%'
+    AND _TABLE_SUFFIX BETWEEN '20250321' AND '20250420'
+  GROUP BY
+    ga_session_id
+)
+SELECT
+  session_date,
+  COUNT(*) AS sessions_count
+FROM
+  sessions
+GROUP BY
+  session_date
+ORDER BY
+  session_date DESC;
