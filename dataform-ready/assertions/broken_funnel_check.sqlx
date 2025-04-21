@@ -1,1 +1,19 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+WITH sessions AS (
+  SELECT
+    session_id,
+    COUNTIF(event_name = 'add_to_cart') AS add_to_cart_count,
+    COUNTIF(event_name = 'begin_checkout') AS begin_checkout_count,
+    COUNTIF(event_name = 'purchase') AS purchase_count
+  FROM `{{project_id}}.{{dataset}}.base_events`
+  GROUP BY session_id
+)
+
+SELECT *
+FROM sessions
+WHERE purchase_count > 0 AND (add_to_cart_count = 0 OR begin_checkout_count = 0)
+

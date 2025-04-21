@@ -1,1 +1,20 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['report']
+}
+
+WITH session_events AS (
+  SELECT
+    session_id,
+    event_name
+  FROM `{{project_id}}.{{dataset}}.base_events`
+)
+
+SELECT
+  session_id,
+  COUNTIF(event_name = 'add_to_cart') AS add_to_cart,
+  COUNTIF(event_name = 'begin_checkout') AS begin_checkout,
+  COUNTIF(event_name = 'purchase') AS purchase
+FROM session_events
+GROUP BY session_id
+

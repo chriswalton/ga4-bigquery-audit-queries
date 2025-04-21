@@ -1,1 +1,40 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['report']
+}
+
+SELECT
+  'Missing IDs' AS check_type,
+  COUNT(*) AS affected_events
+FROM `{{project_id}}.{{dataset}}.missing_identifiers_check`
+
+UNION ALL
+
+SELECT
+  'Duplicate Transaction IDs',
+  COUNT(*) FROM `{{project_id}}.{{dataset}}.duplicate_transaction_ids_check`
+
+UNION ALL
+
+SELECT
+  'Broken Funnels',
+  COUNT(*) FROM `{{project_id}}.{{dataset}}.broken_funnel_check`
+
+UNION ALL
+
+SELECT
+  'Malformed UTM',
+  COUNT(*) FROM `{{project_id}}.{{dataset}}.malformed_utm_check`
+
+UNION ALL
+
+SELECT
+  'Bot-like Sessions',
+  COUNT(*) FROM `{{project_id}}.{{dataset}}.bot_like_sessions_check`
+
+UNION ALL
+
+SELECT
+  'Consent Gaps',
+  COUNT(*) FROM `{{project_id}}.{{dataset}}.consent_mode_gaps_check`
+

@@ -1,1 +1,13 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+SELECT
+  session_id,
+  user_pseudo_id,
+  COUNT(*) AS total_events
+FROM `{{project_id}}.{{dataset}}.base_events`
+GROUP BY session_id, user_pseudo_id
+HAVING total_events > 500 OR total_events = 1
+

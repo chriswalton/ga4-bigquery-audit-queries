@@ -1,1 +1,10 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['base']
+}
+
+SELECT
+  *
+FROM `{{project_id}}.{{dataset}}.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '{{start_date}}' AND '{{end_date}}'
+

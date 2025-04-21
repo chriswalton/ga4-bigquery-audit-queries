@@ -1,1 +1,12 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+SELECT
+  transaction_id,
+  COUNT(*) AS occurrences
+FROM `{{project_id}}.{{dataset}}.base_transactions`
+GROUP BY transaction_id
+HAVING COUNT(*) > 1
+

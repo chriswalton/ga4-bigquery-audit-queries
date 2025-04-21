@@ -1,1 +1,9 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+SELECT *
+FROM `{{project_id}}.{{dataset}}.base_consent`
+WHERE analytics_storage IS NULL OR ads_storage IS NULL
+

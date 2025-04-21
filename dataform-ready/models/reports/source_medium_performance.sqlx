@@ -1,1 +1,13 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['report']
+}
+
+SELECT
+  traffic_source.source,
+  traffic_source.medium,
+  COUNT(*) AS sessions,
+  SUM(CASE WHEN event_name = 'purchase' THEN 1 ELSE 0 END) AS purchases
+FROM `{{project_id}}.{{dataset}}.base_events`
+GROUP BY traffic_source.source, traffic_source.medium
+

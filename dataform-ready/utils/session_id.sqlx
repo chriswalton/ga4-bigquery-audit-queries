@@ -1,1 +1,12 @@
--- placeholder
+SELECT
+  CONCAT(
+    user_pseudo_id,
+    '-',
+    CAST((
+      SELECT value.int_value FROM UNNEST(event_params)
+      WHERE key = 'ga_session_id'
+    ) AS STRING)
+  ) AS session_id
+FROM `{{project_id}}.{{dataset}}.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '{{start_date}}' AND '{{end_date}}'
+

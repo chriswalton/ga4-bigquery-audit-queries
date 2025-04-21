@@ -1,1 +1,13 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['base']
+}
+
+SELECT
+  user_pseudo_id,
+  event_date,
+  privacy_info.analytics_storage AS analytics_storage,
+  privacy_info.ads_storage AS ads_storage
+FROM `{{project_id}}.{{dataset}}.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '{{start_date}}' AND '{{end_date}}'
+

@@ -1,1 +1,13 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+SELECT DISTINCT
+  traffic_source.source,
+  traffic_source.medium
+FROM `{{project_id}}.{{dataset}}.base_events`
+WHERE
+  traffic_source.source IS NULL OR traffic_source.source = '(not set)' OR
+  traffic_source.medium IS NULL OR traffic_source.medium = '(not set)'
+

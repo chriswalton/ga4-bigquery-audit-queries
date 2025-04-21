@@ -1,1 +1,15 @@
--- placeholder
+config {
+  type: 'table',
+  tags: ['base']
+}
+
+SELECT
+  (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'transaction_id') AS transaction_id,
+  user_pseudo_id,
+  event_date,
+  SUM((SELECT value.double_value FROM UNNEST(event_params) WHERE key = 'value')) AS revenue
+FROM `{{project_id}}.{{dataset}}.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '{{start_date}}' AND '{{end_date}}'
+  AND event_name = 'purchase'
+GROUP BY transaction_id, user_pseudo_id, event_date
+

@@ -1,1 +1,15 @@
--- placeholder
+config {
+  type: 'assertion',
+  tags: ['qa']
+}
+
+SELECT
+  event_name,
+  COUNTIF(user_id IS NULL) AS null_user_id,
+  COUNTIF(user_pseudo_id IS NULL) AS null_user_pseudo_id,
+  COUNTIF(user_id IS NULL AND user_pseudo_id IS NULL) AS both_missing
+FROM `{{project_id}}.{{dataset}}.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '{{start_date}}' AND '{{end_date}}'
+GROUP BY event_name
+HAVING both_missing > 0
+
