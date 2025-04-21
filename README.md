@@ -20,6 +20,7 @@ Each query is built for **dynamic use** and focuses on **data quality, performan
 | [`device-platform`](./queries/device-platform) | Test conversion by browser/OS/device/screen |
 | [`broken-pathways`](./queries/broken-pathways) | Analyse traffic to 404s and broken flows |
 | [`strategic-insights`](./queries/strategic-insights) | Spot low-converting segments, event ROI |
+| [`seasonality-analysis`](./queries/seasonality-analysis) | Analyse traffic trends and seasonal behaviours |
 | [`dataform-ready`](./dataform-ready) | Optional: use these queries in [Dataform](https://dataform.co) pipelines |
 
 ---
